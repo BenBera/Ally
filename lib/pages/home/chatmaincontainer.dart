@@ -1,5 +1,7 @@
+import 'package:ally_ui/pages/setting/settings.dart';
+import 'package:ally_ui/pages/status/my_statuses.dart';
 import 'package:ally_ui/utils/ally_collors.dart';
-import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
+import 'package:ally_ui/utils/bubbleBottomBar.dart';
 import 'package:flutter/material.dart';
 
 class ChatContainePage extends StatefulWidget {
@@ -8,11 +10,23 @@ class ChatContainePage extends StatefulWidget {
 }
 
 class _ChatContainePageState extends State<ChatContainePage> {
-  set currentColor(Color currentColor) {}
+  int currentIndex;
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = 0;
+  }
 
-  set currentTitle(String currentTitle) {}
+  void changePage(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+  // set currentColor(Color currentColor) {}
 
-  set currentPage(int currentPage) {}
+  // set currentTitle(String currentTitle) {}
+
+  // set currentPage(int currentPage) {}
 
   @override
   Widget build(BuildContext context) {
@@ -21,35 +35,35 @@ class _ChatContainePageState extends State<ChatContainePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Chats'),
+          backgroundColor: Colors.white,
           leading: IconButton(
-            color: iconAppColor,
-            icon: Icon(Icons.search), onPressed: null),
+              color: iconAppColor, icon: Icon(Icons.search), onPressed: null),
           actions: <Widget>[
             IconButton(
-              color: iconAppColor,
-              icon: Icon(
-                Icons.person), 
-                onPressed: null),
+                color: iconAppColor, icon: Icon(Icons.person), onPressed: null),
             IconButton(
-              color: appBarColor,
-              icon: Icon(Icons.settings), onPressed: null)
+                color: iconAppColor, icon: Icon(Icons.settings), onPressed:(){
+                  Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context)=> SettingPage()
+               
+              ));
+                })
           ],
           bottom: TabBar(
-            indicatorColor: Theme.of(context).accentColor,
-            labelColor: Theme.of(context).accentColor,
-            unselectedLabelColor: Theme.of(context).textTheme.caption.color,
             isScrollable: false,
             tabs: <Widget>[
               Tab(
                 child: Text(
                   "Message",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: primaryColor),
                 ),
               ),
               Tab(
                 child: Text(
                   "Groups",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: primaryColor),
                 ),
               ),
             ],
@@ -68,7 +82,7 @@ class _ChatContainePageState extends State<ChatContainePage> {
                 ),
                 child: FloatingActionButton(
                   child: Icon(Icons.add),
-                  onPressed: null,
+                  onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> MyStatusesPage())),
                 ),
               ),
             ),
@@ -98,36 +112,110 @@ class _ChatContainePageState extends State<ChatContainePage> {
         width: MediaQuery.of(context).size.width * 0.9,
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          child: CubertoBottomBar(
-            barBackgroundColor: primaryColor,
-            inactiveIconColor: inactiveBottomIcon,
-            tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
-            initialSelection: 0,
-            drawer: CubertoDrawer.NO_DRAWER,
-            tabs: [
-              TabData(
-                  iconData: Icons.chat,
-                  title: "Message",
-                  tabColor: Colors.white),
-              TabData(
-                  iconData: Icons.graphic_eq,
-                  title: "Status",
-                  tabColor: Colors.lightGreen),
-              TabData(
-                  iconData: Icons.rss_feed,
-                  title: "Feeds",
-                  tabColor: Colors.amber),
-              TabData(
-                  iconData: Icons.call, title: "Call", tabColor: Colors.teal),
-            ],
-            onTabChangedListener: (position, title, color) {
-              setState(() {
-                currentPage = position;
-                currentTitle = title;
-                currentColor = color;
-              });
-            },
-          ),
-        ));
+          child: BubbleBottomBar(
+          backgroundColor: primaryColor,
+          opacity: 1,
+          currentIndex: currentIndex,
+          onTap: changePage,
+          elevation: 0,
+          items: [
+            BubbleBottomBarItem(
+              backgroundColor: bottomNavBar,
+              icon: Icon(
+                Icons.chat_bubble_outline,
+                color: inactiveBottomIcon,
+              ),
+              activeIcon: Icon(
+                Icons.chat_bubble_outline,
+                color: textBottomNavBar,
+                
+              ),
+              title: Text(
+                "Chats",
+                style: TextStyle(color: textBottomNavBar),
+              ),
+            ),
+            BubbleBottomBarItem(
+              backgroundColor: bottomNavBar,
+              icon: Icon(
+                Icons.sync,
+                color: inactiveBottomIcon,
+              ),
+              activeIcon: Icon(
+                Icons.sync,
+                color: textBottomNavBar,
+              ),
+              title: Text(
+                "Status",
+                style: TextStyle(color: textBottomNavBar),
+              ),
+            ),
+            BubbleBottomBarItem(
+              backgroundColor: bottomNavBar,
+              icon: Icon(
+                Icons.rss_feed,
+                color: inactiveBottomIcon,
+              ),
+              activeIcon: Icon(
+                Icons.rss_feed,
+                color: textBottomNavBar,
+              ),
+              title: Text(
+                "Feeds",
+                style: TextStyle(color: textBottomNavBar),
+              ),
+            ),
+            BubbleBottomBarItem(
+              backgroundColor: bottomNavBar,
+              icon: Icon(
+                Icons.local_phone,
+                color: inactiveBottomIcon,
+              ),
+              activeIcon: Icon(
+                Icons.local_phone,
+                color: textBottomNavBar,
+              ),
+              title: Text(
+                "Calls",
+                style: TextStyle(color: textBottomNavBar),
+              ),
+            )
+          ],
+        ),
+      ),
+          // child: CubertoBottomBar(
+          //   barBackgroundColor: primaryColor,
+          //   inactiveIconColor: inactiveBottomIcon,
+          //   tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
+          //   initialSelection: 0,
+          //   drawer: CubertoDrawer.NO_DRAWER,
+          //   tabs: [
+          //     TabData(
+          //         iconData: Icons.chat,
+          //         title: "Message",
+          //         tabColor: Colors.white),
+          //     TabData(
+          //       onclick: (){
+          //         Navigator.push(context, MaterialPageRoute(builder: (context)=> MyStatusesPage()));
+          //       },
+          //         iconData: Icons.graphic_eq,
+          //         title: "Status",
+          //         tabColor:iconColor),
+          //     TabData(
+          //         iconData: Icons.rss_feed,
+          //         title: "Feeds",
+          //         tabColor: Colors.amber),
+          //     TabData(
+          //         iconData: Icons.call, title: "Call", tabColor: Colors.teal),
+          //   ],
+          //   onTabChangedListener: (position, title, bottomAppBar) {
+          //     setState(() {
+          //       currentPage = position;
+          //       currentTitle = title;
+          //       currentColor = bottomNavBar;
+          //     });
+          //   },
+          // ),
+        );
   }
 }

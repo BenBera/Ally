@@ -9,3 +9,5 @@ Color bottomNavBar = Color(0xFFCEE9FC);
 Color textBottomNavBar = Color(0xFF366F96);
 Color inactiveBottomIcon = Color(0xFFBADDF8);
 Color iconAppColor = Color(0xFF2E95E8);
+Color settingbgColor = Color(0xFF1066A1);
+Color settingNameColor = Color(0xFFBCDFFB);

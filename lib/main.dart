@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ally App',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: primaryColor,
       ),
       home: ChatContainePage()
     );
