@@ -1,20 +1,20 @@
+import 'package:ally_ui/utils/ally_collors.dart';
 import 'package:flutter/material.dart';
 
 class SettingPageBackground extends StatelessWidget {
-
   final screenHeight;
 
-  const SettingPageBackground({Key key, @required this.screenHeight}) : super(key: key);
+  const SettingPageBackground({Key key, @required this.screenHeight})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final themeData  = Theme.of(context);
 
     return ClipPath(
       clipper: BottomShapeClipper(),
       child: Container(
         height: screenHeight * 0.5,
-        color: themeData.primaryColor,
+        color: primaryColor,
       ),
     );
   }
@@ -24,11 +24,18 @@ class BottomShapeClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    Offset curveStartPoint = Offset(0, size.height * 0.85);
-    Offset curveEndPoint = Offset(size.width, size.height * 0.85);
-    path.lineTo(curveStartPoint.dx, curveStartPoint.dy);
-    path.quadraticBezierTo(size.width/2, size.height, curveEndPoint.dx, curveEndPoint.dy);
-    path.lineTo(size.width, 0);
+    Offset curveStartingPoint = Offset(0.0, size.height * 0.7);
+    Offset curveEndPoint = Offset(
+      size.width + 500,
+      0.7,
+    );
+    path.lineTo(curveStartingPoint.dx + 0.0, curveStartingPoint.dy + 6);
+    path.quadraticBezierTo(size.width * -0.7, size.height * 0.7,
+        curveEndPoint.dx + 300, curveEndPoint.dy + 0.7);
+    path.quadraticBezierTo(size.width * 0.6, size.height * 0.7,
+        curveEndPoint.dx, curveEndPoint.dy);
+    path.lineTo(size.width + 500, 0.6);
+    path.close();
     return path;
   }
 
@@ -36,5 +43,4 @@ class BottomShapeClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return true;
   }
-
 }

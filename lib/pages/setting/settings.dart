@@ -1,4 +1,5 @@
 import 'package:ally_ui/pages/setting/setting_model.dart';
+import 'package:ally_ui/pages/setting/settings_background.dart';
 import 'package:ally_ui/utils/ally_collors.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +23,9 @@ class _SettingPageState extends State<SettingPage> {
           Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
             child: CircleAvatar(
-              backgroundColor: appBarColor,
-                child:
-                    Icon(Icons.person_outline, size: 30.0, color: primaryColor)),
+                backgroundColor: appBarColor,
+                child: Icon(Icons.person_outline,
+                    size: 30.0, color: primaryColor)),
           ),
           Text(
             "Profile",
@@ -68,8 +69,9 @@ class _SettingPageState extends State<SettingPage> {
           Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
             child: CircleAvatar(
-              backgroundColor: appBarColor,
-                child: Icon(Icons.file_download, size: 30.0, color: primaryColor)),
+                backgroundColor: appBarColor,
+                child:
+                    Icon(Icons.file_download, size: 30.0, color: primaryColor)),
           ),
           Text(
             "Download Policy",
@@ -88,7 +90,7 @@ class _SettingPageState extends State<SettingPage> {
           Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
             child: CircleAvatar(
-              backgroundColor: appBarColor,
+                backgroundColor: appBarColor,
                 child: Icon(Icons.settings, size: 30.0, color: primaryColor)),
           ),
           Text(
@@ -112,7 +114,7 @@ class _SettingPageState extends State<SettingPage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
                   child: CircleAvatar(
-                    backgroundColor: appBarColor,
+                      backgroundColor: appBarColor,
                       child: Icon(Icons.sync, size: 30.0, color: primaryColor)),
                 ),
                 Text(
@@ -135,7 +137,7 @@ class _SettingPageState extends State<SettingPage> {
           Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
             child: CircleAvatar(
-              backgroundColor: appBarColor,
+                backgroundColor: appBarColor,
                 child: Icon(Icons.help, size: 30.0, color: primaryColor)),
           ),
           Text(
@@ -211,8 +213,7 @@ class _SettingPageState extends State<SettingPage> {
           Container(
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
           ),
-          Text("Log Out",
-              style: TextStyle(fontSize: 14.0, color:iconColor))
+          Text("Log Out", style: TextStyle(fontSize: 14.0, color: iconColor))
         ],
       ),
     );
@@ -227,33 +228,63 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBarColor,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          color: iconAppColor,
+        appBar: AppBar(
+          backgroundColor: appBarColor,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            color: iconAppColor,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-              child: Container(
-          color: settingbgColor,
-          child: Column(
+        body: Container(
+          color: primaryColor,
+          child: Stack(
             children: <Widget>[
-              profileWidget(),
-              blockedWidget(),
-              downloadPolicy(),
-              statusSettings(),
-              syncWidget(),
-              helpWidget(),
-              reportWidget(),
-              appInformationWidget(),
-              licenceWidget(),
-              logutPolicyWidget()
+              // SettingPageBackground(
+              //     screenHeight: MediaQuery.of(context).size.height * 2),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: getallSettings(),
+                  ),
+                ),
+              ),
+             
             ],
           ),
+        ));
+  }
+
+  Widget licenseAndLogout() {
+    return Container(
+      child: Column(
+        children: <Widget>[licenceWidget(), logutPolicyWidget()],
+      ),
+    );
+  }
+
+  Widget getallSettings() {
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            profileWidget(),
+            blockedWidget(),
+            downloadPolicy(),
+            statusSettings(),
+            syncWidget(),
+            helpWidget(),
+            reportWidget(),
+            appInformationWidget(),
+            licenceWidget(),
+            logutPolicyWidget()
+             
+          ],
         ),
       ),
     );

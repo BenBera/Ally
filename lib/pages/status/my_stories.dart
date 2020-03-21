@@ -1,6 +1,8 @@
 import 'package:ally_ui/utils/ally_collors.dart';
 import 'package:flutter/material.dart';
 
+import 'my_stories_background.dart';
+
 class MyStoriesPage extends StatefulWidget {
   @override
   _MyStoriesPageState createState() => _MyStoriesPageState();
@@ -23,12 +25,7 @@ class _MyStoriesPageState extends State<MyStoriesPage> {
       ),
       body: Stack(
         children: <Widget>[
-          ClipPath(
-            child: Container(
-              color: primaryColor,
-            ),
-            clipper: getClipper(),
-          )
+         MyStatusBackGround(),
         ],
       ),
     );
